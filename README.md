@@ -1,5 +1,5 @@
 # mlton-freebsd_bootstrap
-Bootstrap Compilers needed to build the MLton Standard ML compiler
+Bootstrap Compilers needed to build the MLton Standard ML compiler on FreeBSD 11, 12 and 13 for both i386 and amd64 architectures
 
 ## bootstrap image metadata
 
