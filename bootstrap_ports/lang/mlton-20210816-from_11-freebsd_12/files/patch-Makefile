@@ -1,0 +1,75 @@
+--- Makefile.orig	2021-09-18 01:18:56 UTC
++++ Makefile
+@@ -387,9 +387,23 @@ install-no-strip:
+ 		-e "s;^LIB_REL_BIN=.*;LIB_REL_BIN=\"$(TLIB_REL_TBIN)\";" \
+ 		< "$(BIN)/$(MLTON)" > "$(TBIN)/$(MLTON)"
+ 	$(CHMOD) a+x "$(TBIN)/$(MLTON)"
+-	$(CP) "$(LIB)/." "$(TLIB)/"
++#	$(CP) "$(LIB)/." "$(TLIB)/"
++	$(MKDIR) "$(TMAN)"
++	cd "$(SRC)/man" && $(CP) $(MAN_PAGES) "$(TMAN)/"
++	cd "$(LIB)" && $(CP) include mlton-compile \
++		sml static-library targets "$(TLIB)/"
++ifeq (true, $(GZIP_MAN))
++	cd "$(TMAN)" && $(GZIP) --force --best $(MAN_PAGES);
++endif
++
++install-bootstrap:
++	$(MKDIR) "$(TBIN)" "$(TLIB)"
++	$(CP) "$(BOOTSTRAP)/bin/." "$(TBIN)/"
++	$(CHMOD) a+x "$(TBIN)/$(MLTON)"
+ 	$(MKDIR) "$(TMAN)"
+ 	cd "$(SRC)/man" && $(CP) $(MAN_PAGES) "$(TMAN)/"
++	cd "$(BOOTSTRAP)/lib/mlton" && $(CP) include mlton-compile \
++		sml static-library targets "$(TLIB)/"
+ ifeq (true, $(GZIP_MAN))
+ 	cd "$(TMAN)" && $(GZIP) --force --best $(MAN_PAGES);
+ endif
+@@ -471,10 +485,10 @@ endif
+ ifeq (true,$(MLTON_BINARY_RELEASE_WITH_DOCS))
+ 	$(MAKE) DESTDIR="$(SRC)/$(MLTON_BINARY_RELEASE_NAME)" PREFIX="" install-docs
+ endif
+-	$(CP) "$(SRC)/Makefile.binary" "$(SRC)/$(MLTON_BINARY_RELEASE_NAME)/Makefile"
++#	$(CP) "$(SRC)/Makefile.binary" "$(SRC)/$(MLTON_BINARY_RELEASE_NAME)/Makefile"
+ 	$(CP) "$(SRC)/CHANGELOG.adoc" "$(SRC)/LICENSE" "$(SRC)/README.adoc" "$(SRC)/$(MLTON_BINARY_RELEASE_NAME)/"
+-	$(TAR) cvzf $(MLTON_BINARY_RELEASE_NAME).tgz $(MLTON_BINARY_RELEASE_NAME)
+-	$(RM) $(MLTON_BINARY_RELEASE_NAME)
++#	$(TAR) cvzf $(MLTON_BINARY_RELEASE_NAME).tgz $(MLTON_BINARY_RELEASE_NAME)
++#	$(RM) $(MLTON_BINARY_RELEASE_NAME)
+ 
+ ######################################################################
+ 
+@@ -580,12 +594,12 @@ remote-bootstrap:
+ 	$(MAKE) remote--send-mlyacc-yacc-files
+ 	$(MAKE) remote--make-tools
+ 	$(MAKE) remote--recv-boot-files
+-	$(MAKE) remote--make-clean
++#	$(MAKE) remote--make-clean
+ 	$(MAKE) remote--send-boot-files
+ 	$(MAKE) remote--make-all
+ 	$(MAKE) remote--make-binary-release
+-	$(MAKE) remote--recv-binary-release
+-	$(MAKE) remote--rm-root
++#	$(MAKE) remote--recv-binary-release
++#	$(MAKE) remote--rm-root
+ 
+ .PHONY: remote-add-target
+ remote-add-target:
+@@ -627,7 +641,7 @@ remote--send-bootstrap-compiler-files:
+ 
+ .PHONY: remote--recv-boot-files
+ remote--recv-boot-files:
+-	$(SSH) $(REMOTE_MACHINE) "cd $(REMOTE_ROOT) && $(REMOTE_RM) boot && $(REMOTE_CP) build boot"
++	$(SSH) $(REMOTE_MACHINE) "cd $(REMOTE_ROOT) && $(REMOTE_RM) boot && $(REMOTE_CP) $(REMOTE_TMP)/build build && $(REMOTE_CP) build boot"
+ 	$(SSH) $(REMOTE_MACHINE) "cd $(REMOTE_ROOT) && $(REMOTE_TAR) czf - boot" | cat - > "$(LIB)/targets/$(REMOTE_TARGET)/boot.tgz"
+ 
+ .PHONY: remote--send-boot-files
+@@ -637,7 +651,7 @@ remote--send-boot-files:
+ 
+ .PHONY: remote--recv-binary-release
+ remote--recv-binary-release:
+-	$(SSH) $(REMOTE_MACHINE) "cd $(REMOTE_ROOT) && cat mlton-$(MLTON_VERSION)-$(MLTON_BINARY_RELEASE).$(REMOTE_ARCH)-$(REMOTE_OS)$(MLTON_BINARY_RELEASE_SUFFIX).tgz" | cat - > mlton-$(MLTON_VERSION)-$(MLTON_BINARY_RELEASE).$(REMOTE_ARCH)-$(REMOTE_OS)$(MLTON_BINARY_RELEASE_SUFFIX).tgz
++	$(SSH) $(REMOTE_MACHINE) "cd $(REMOTE_TMP) && cat mlton-$(MLTON_VERSION)-$(MLTON_BINARY_RELEASE).$(REMOTE_ARCH)-$(REMOTE_OS)$(MLTON_BINARY_RELEASE_SUFFIX).tgz" | cat - > mlton-$(MLTON_VERSION)-$(MLTON_BINARY_RELEASE).$(REMOTE_ARCH)-$(REMOTE_OS)$(MLTON_BINARY_RELEASE_SUFFIX).tgz
+ 
+ .PHONY: remote--rm-root
+ remote--rm-root:

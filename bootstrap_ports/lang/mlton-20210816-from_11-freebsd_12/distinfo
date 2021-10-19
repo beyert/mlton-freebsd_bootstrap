@@ -1,0 +1,7 @@
+TIMESTAMP = 1634367453
+SHA256 (mlton-20210816.i386-freebsd-11.txz) = bcc21ef73dcb1eb773cbe076b5a79a9ffad9e431cae4eeac317078741055b91d
+SIZE (mlton-20210816.i386-freebsd-11.txz) = 4613016
+SHA256 (mlton-20210816.amd64-freebsd-11.txz) = b8ddde2adcb08ca76fc6ba3ff6d7186ee7074b3a7b4be6e982a5b1d2fe10eefd
+SIZE (mlton-20210816.amd64-freebsd-11.txz) = 5656260
+SHA256 (MLton-mlton-20210816-from_11-b2fca3d_GH0.tar.gz) = 9809f100308c3330803d3d52052ecdc00774b74869f57ec20880c46ba796ea6d
+SIZE (MLton-mlton-20210816-from_11-b2fca3d_GH0.tar.gz) = 14307327

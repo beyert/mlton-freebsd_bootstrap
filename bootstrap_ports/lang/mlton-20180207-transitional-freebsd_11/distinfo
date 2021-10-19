@@ -1,0 +1,7 @@
+TIMESTAMP = 1634365803
+SHA256 (mlton-20180207.i386-freebsd-11.txz) = ecfecf41e9fbc3aae4ec56e42abc3c6bbef26902e007e6b6a4a03ee1221e4979
+SIZE (mlton-20180207.i386-freebsd-11.txz) = 4243192
+SHA256 (mlton-20180207.amd64-freebsd-11.txz) = 856dafc999d58575699e113c57c1973509e67a1ac4137ec9323397ecdbd1c4b9
+SIZE (mlton-20180207.amd64-freebsd-11.txz) = 5129104
+SHA256 (MLton-mlton-20180207-transitional-dc01cdc_GH0.tar.gz) = 3064488a521b7cae6022d9de3d3b26e4a25682c8b80634b200ee1287dbef8b6e
+SIZE (MLton-mlton-20180207-transitional-dc01cdc_GH0.tar.gz) = 13559531

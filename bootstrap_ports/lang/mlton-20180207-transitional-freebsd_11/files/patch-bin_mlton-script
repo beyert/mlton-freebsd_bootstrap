@@ -1,0 +1,11 @@
+--- bin/mlton-script.orig	2018-02-07 09:59:23 UTC
++++ bin/mlton-script
+@@ -79,8 +79,6 @@ doit "$lib" \
+         -cc-opt-quote "-I$lib/include"                           \
+         -link-opt '-lm -lgmp'                                    \
+         $gmpCCOpts $gmpLinkOpts                                  \
+-        -llvm-llc-opt '-O2'                                      \
+-        -llvm-opt-opt '-mem2reg -O2'                             \
+         -mlb-path-var 'SML_LIB $(LIB_MLTON_DIR)/sml'             \
+         -target-as-opt amd64 '-m64'                              \
+         -target-as-opt x86 '-m32'                                \

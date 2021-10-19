@@ -1,0 +1,22 @@
+--- lib/mlrisc-lib/Makefile.orig	2018-02-07 09:59:23 UTC
++++ lib/mlrisc-lib/Makefile
+@@ -11,6 +11,9 @@ FIND := find
+ GZIP := gzip
+ PATCH := patch
+ TAR := tar
++SED := sed
++CC := c_compiler
++WRKSRC := work_source
+ 
+ ######################################################################
+ ######################################################################
+@@ -20,6 +23,9 @@ all: MLRISC/README.mlton
+ MLRISC/README.mlton: MLRISC.tgz MLRISC.patch
+ 	rm -rf MLRISC
+ 	$(GZIP) -dc MLRISC.tgz | $(TAR) xf -
++	$(SED) -i.bak 's|gcc|$(CC)|g' \
++		$(WRKSRC)/lib/mlrisc-lib/MLRISC/c-call/varargs/interp/Makefile \
++		$(WRKSRC)/lib/mlrisc-lib/MLRISC/c-call/test/Makefile
+ 	$(FIND) MLRISC -name '._*' -depth -exec rm -f '{}' ';'
+ 	chmod -R a+r MLRISC
+ 	chmod -R g-s MLRISC
