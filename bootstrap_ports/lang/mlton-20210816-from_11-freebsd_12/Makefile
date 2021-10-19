@@ -95,7 +95,7 @@ REMOTE_MAKE_ARGS=	DESTDIR='' MLTON_VERSION=${PORTVERSION} \
 .endif
 
 .if ${PORT_OPTIONS:MDOCS} && ${OSREL:R} == 11
-BUILD_DEPENDS+=	htmldoc:textproc/asciidoc
+BUILD_DEPENDS+=	htmldoc:textproc/htmldoc
 MAKE_ARGS+=	MLTON_BINARY_RELEASE_WITH_DOCS=true
 #USE_TEX=	latex:build
 USE_TEX=	latex:formats

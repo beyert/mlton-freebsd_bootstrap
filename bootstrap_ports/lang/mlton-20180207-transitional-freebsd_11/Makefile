@@ -67,7 +67,7 @@ MAKE_ARGS=	DESTDIR='' MLTON_VERSION=${PORTVERSION} \
 .endif
 
 .if ${PORT_OPTIONS:MDOCS}
-BUILD_DEPENDS+=	htmldoc:textproc/asciidoc
+BUILD_DEPENDS+=	htmldoc:textproc/htmldoc
 # not sure which build directive is better, but latex-formats is directly used
 #USE_TEX=       latex:build
 USE_TEX=	latex:formats

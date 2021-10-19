@@ -64,10 +64,8 @@ MAKE_ARGS=	DESTDIR='' MLTON_VERSION=${PORTVERSION} \
 .endif
 
 .if ${PORT_OPTIONS:MDOCS}
-#BUILD_DEPENDS+=	gsed:textproc/gsed \
-#		htmldoc:textproc/htmldoc
-#USE_TEX=	latex:build
 BUILD_DEPENDS+=	htmldoc:textproc/htmldoc
+#USE_TEX=	latex:build
 #INSTALL_TARGET=	install-docs install
 ALL_TARGET=	install-docs all
 .else
